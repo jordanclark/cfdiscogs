@@ -172,7 +172,7 @@ component {
 	//  ---------------------------------------------------------------------------- 
 	
 	// BROKEN 
-	// struct function addOrderFeedback(required string order_id, required string rating, required string message) output=false {
+	// struct function addOrderFeedback(required string order_id, required string rating, required string message) {
 	// 	return this.apiRequest( api= "POST /marketplace/orders/{order_id}/feedback?token={token}", argumentCollection= arguments );
 	// }
 
