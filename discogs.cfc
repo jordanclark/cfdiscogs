@@ -76,9 +76,9 @@ component {
 		};
 		out.requestUrl &= listRest( out.args.api, " " );
 		structDelete( out.args, "api" );
-		//  replace {var} in url 
+		// replace {var} in url 
 		for ( item in out.args ) {
-			//  strip NULL values 
+			// strip NULL values 
 			if ( isNull( out.args[ item ] ) ) {
 				structDelete( out.args, item );
 			} else if ( isSimpleValue( arguments[ item ] ) && arguments[ item ] == "null" ) {
@@ -131,7 +131,7 @@ component {
 		} else if ( left( out.statusCode, 1 ) == 2 ) {
 			out.success= true;
 		}
-		//  parse response 
+		// parse response 
 		try {
 			out.data= deserializeJSON( out.response );
 			if ( isStruct( out.data ) && structKeyExists( out.data, "error" ) ) {
@@ -151,9 +151,9 @@ component {
 	}
 
 
-	//  ---------------------------------------------------------------------------- 
-	//  ITEMS 
-	//  ---------------------------------------------------------------------------- 
+	// ---------------------------------------------------------------------------- 
+	// ITEMS 
+	// ---------------------------------------------------------------------------- 
 
 	struct function searchByUPC(required string barcode) {
 		return this.apiRequest( api= "GET /database/search?barcode={barcode}", argumentCollection= arguments );
@@ -167,9 +167,9 @@ component {
 		return this.apiRequest( api= "GET /releases/{release_id}", argumentCollection= arguments );
 	}
 
-	//  ---------------------------------------------------------------------------- 
-	//  MARKETPLACE 
-	//  ---------------------------------------------------------------------------- 
+	// ---------------------------------------------------------------------------- 
+	// MARKETPLACE 
+	// ---------------------------------------------------------------------------- 
 	
 	// BROKEN 
 	// struct function addOrderFeedback(required string order_id, required string rating, required string message) {
