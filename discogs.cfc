@@ -60,7 +60,6 @@ component {
 			arguments[ "key" ]= this.apiKey;
 			arguments[ "secret" ]= this.apiSecret;
 		}
-		var wait= 0;
 		var http= {};
 		var item= "";
 		var out= {
@@ -73,6 +72,7 @@ component {
 		,	verb= listFirst( arguments.api, " " )
 		,	requestUrl= this.apiUrl
 		,	data= {}
+		,	delay= 0
 		};
 		out.requestUrl &= listRest( out.args.api, " " );
 		structDelete( out.args, "api" );
@@ -97,13 +97,12 @@ component {
 		if ( structKeyExists( out, "body" ) ) {
 			this.debugLog( out.body );
 		}
-		this.debugLog( out );
 		// throttle requests by sleeping the thread to prevent overloading api
 		if ( this.lastRequest > 0 && this.throttle > 0 ) {
-			wait= this.throttle - ( getTickCount() - this.lastRequest );
-			if ( wait > 0 ) {
-				this.debugLog( "Pausing for #wait#/ms" );
-				cfthread( duration=wait, action="sleep" );
+			out.delay= this.throttle - ( getTickCount() - this.lastRequest );
+			if ( out.delay > 0 ) {
+				this.debugLog( "Pausing for #out.delay#/ms" );
+				sleep( out.delay );
 			}
 		}
 		cftimer( type="debug", label="discogs request" ) {
