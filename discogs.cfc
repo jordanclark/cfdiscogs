@@ -1,5 +1,5 @@
 component {
-	cfprocessingdirective( preserveCase=true );
+	// cfprocessingdirective( preserveCase=true );
 
 	function init(
 		required string apiKey
@@ -9,8 +9,9 @@ component {
 	,	string userAgent= "CFML API Agent 0.1"
 	,	numeric throttle= 250
 	,	numeric httpTimeOut= 60
-	,	boolean debug= ( request.debug ?: false )
+	,	boolean debug
 	) {
+		arguments.debug = ( arguments.debug ?: request.debug ?: false );
 		this.apiKey= arguments.apiKey;
 		this.apiSecret= arguments.apiSecret;
 		this.token= arguments.token;
@@ -48,7 +49,12 @@ component {
 				request.log( arguments.input );
 			}
 		} else if( this.debug ) {
-			cftrace( text=( isSimpleValue( arguments.input ) ? arguments.input : "" ), var=arguments.input, category="Discogs", type="information" );
+			var info= ( isSimpleValue( arguments.input ) ? arguments.input : serializeJson( arguments.input ) );
+			cftrace(
+				var= "info"
+			,	category= "Discogs"
+			,	type= "information"
+			);
 		}
 		return;
 	}
